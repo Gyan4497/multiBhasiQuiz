@@ -7,7 +7,7 @@ module.exports = function(app) {
 	.get(mbQuiz.list_the_question)
 	.post(mbQuiz.create_a_question);
 
-	app.route('/question/answer')
-	.get(mbQuiz.read_answer);
+	app.route('/question/:quesId')
+	.get(mbQuiz.check_answer);
 
 };

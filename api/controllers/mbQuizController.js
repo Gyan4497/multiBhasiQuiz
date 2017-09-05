@@ -20,8 +20,11 @@ exports.create_a_question = function(req, res) {
 	});
 };
 
-exports.read_answer = function(req, res) {
-	Question.findById(req.params.ques_id, function( err, ques) {
+exports.check_answer = function(req, res) {
+	console.log(req.body);
+	console.log(req.params);
+
+	Question.find(req.params.quesId, function( err, ques) {
 		if(err) {res.send(err);}
 		res.json(ques);
 	});
