@@ -28,21 +28,25 @@ class App extends Component {
 
   onclick(type){
     this.setState({count: this.state.count+1});
+
     const quesObj = this.state.data[this.state.count];
-    console.log("its me", quesObj);
-    this.setState({
-      quesObj
-      // count: type == 'add' ? this.state.count + 1: this.state.count - 1
-    });
+    if(quesObj == null) {
+      alert("Bye !!!");
+    }
+    else 
+    this.setState({ quesObj });
     
   }
 
   render() {
     return (
-      <div>
+      <div class="quizBody">
         <Question quesObj={this.state.quesObj}/>
-        <input type='button' onClick={this.onclick.bind(this, 'add')} value='Next'/>
-        <input type='button' onClick={this.onclick.bind(this, 'start')} value='StartTest'/>
+        
+        {this.state.count==0 ?
+          <input type='button' onClick={this.onclick.bind(this, 'start')} value='StartTest' className="start"/>
+          :<input type='button' onClick={this.onclick.bind(this, 'next')} value='Next' className="next"/>
+        }
       </div>
     );
   }
@@ -56,21 +60,13 @@ class Question extends Component {
     {
       alert("Correct answer!!!!")
     }
-
   }
 
   render() {
     return(
       <div>
-      <ul>
-
-        <li key={this.props.quesObj.id}> {this.props.quesObj.ques}
-
-        {(this.props.quesObj.options!= undefined) ? this.props.quesObj.options.map(options => (<input type='button' onClick={() => {this.optionsCheck(options)}} value={options}/>)):null }
-        {console.log(this.props.quesObj.options)}
-        {console.log("answer:", this.props.quesObj.ans)}
-        </li>
-      </ul>
+        <div key={this.props.quesObj.id} className="question"> {this.props.quesObj.ques}</div>
+        <div>{(this.props.quesObj.options!= undefined) ? this.props.quesObj.options.map(options => (<input type='button' onClick={() => {this.optionsCheck(options)}} value={options} className="options"/>)):null }</div>
       </div>
     );
   }
