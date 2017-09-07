@@ -8,10 +8,9 @@ var QuizSchema = new Schema({
 		type: String,
 		required: 'please enter the question'
 	},
-	option1: { type: String },
-	option2: { type: String },
-	option3: { type: String },
-	option4: { type: String },
+	
+	options: {type: Array, "default": [] },
+
 	ans: { type: String }
 });
 

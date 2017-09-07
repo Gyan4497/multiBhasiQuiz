@@ -4,11 +4,11 @@ import ReactDom from 'react-dom';
 import axios from 'axios';
 
 class App extends Component {
-
   constructor() {
     super();
     this.state = {
       data: [],
+      count: 0,
       status: 'loading'
     };
   }
@@ -16,40 +16,51 @@ class App extends Component {
   componentDidMount() {
     axios.get('http://localhost:8080/question')
     .then(res => {
-      const data = res.data.children.map(obj => obj.data);
+      console.log(res);
+      const data = res.data.map(obj => obj);
       this.setState({ data });
+      console.log(data);
     });
   }
-
   render() {
     return (
-      // <div className="App">
-      //   <div className="App-header">
-      //     //<img src={logo} className="App-logo" alt="logo" />
-      //     <h2>Welcome to React</h2>
-      // //   </div>
-      // </div>
-
       <div>
-        <ul>
-          {this.state.data.map(data =>
-            <li key={data.id}>{data.ques}</li>
-            // <li>{data.option1}</li>
-            // <li>{data.option2}</li>
-            // <li>{data.option3}</li>
-            // <li>{data.option4}</li>
-          )}
-        </ul>
-        <button> Next </button>
+        <Question data={this.state.data}/>
+        <Button/>
       </div>
     );
   }
 }
 
-// class Question extends Component {
-//   render() {
-//     return();
-//   }
-// }
+class Question extends Component {
+  render() {
+
+    return(
+      <ul>
+        {this.props.data.map(data =>
+         <li key={data.id}>{data.ques}
+          <ul>
+            <li>{data.options[0]}</li>
+            <li>{data.options[1]}</li>
+            <li>{data.options[2]}</li>
+            <li>{data.options[3]}</li>
+          </ul>
+         </li>
+        )}
+      </ul>
+    );
+  }
+}
+
+class Button extends Component {
+  // checkAnswer() {
+  //
+  // }
+  render() {
+    return(
+      <button > Next </button>
+    );
+  }
+}
 
 export default App;
