@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       data: [],
       count: 0,
+      quesObj: [],
       status: 'loading'
     };
   }
@@ -19,46 +20,58 @@ class App extends Component {
       console.log(res);
       const data = res.data.map(obj => obj);
       this.setState({ data });
+
       console.log(data);
+
     });
   }
+
+  onclick(type){
+    this.setState({count: this.state.count+1});
+    const quesObj = this.state.data[this.state.count];
+    console.log("its me", quesObj);
+    this.setState({
+      quesObj
+      // count: type == 'add' ? this.state.count + 1: this.state.count - 1
+    });
+    
+  }
+
   render() {
     return (
       <div>
-        <Question data={this.state.data}/>
-        <Button/>
+        <Question quesObj={this.state.quesObj}/>
+        <input type='button' onClick={this.onclick.bind(this, 'add')} value='Next'/>
+        <input type='button' onClick={this.onclick.bind(this, 'start')} value='StartTest'/>
       </div>
     );
   }
 }
 
 class Question extends Component {
-  render() {
+  optionsCheck = (options) => {
+    console.log(options);
+    console.log(this.props.quesObj.ans);
+    if(options === this.props.quesObj.ans) 
+    {
+      alert("Correct answer!!!!")
+    }
 
-    return(
-      <ul>
-        {this.props.data.map(data =>
-         <li key={data.id}>{data.ques}
-          <ul>
-            <li>{data.options[0]}</li>
-            <li>{data.options[1]}</li>
-            <li>{data.options[2]}</li>
-            <li>{data.options[3]}</li>
-          </ul>
-         </li>
-        )}
-      </ul>
-    );
   }
-}
 
-class Button extends Component {
-  // checkAnswer() {
-  //
-  // }
   render() {
     return(
-      <button > Next </button>
+      <div>
+      <ul>
+
+        <li key={this.props.quesObj.id}> {this.props.quesObj.ques}
+
+        {(this.props.quesObj.options!= undefined) ? this.props.quesObj.options.map(options => (<input type='button' onClick={() => {this.optionsCheck(options)}} value={options}/>)):null }
+        {console.log(this.props.quesObj.options)}
+        {console.log("answer:", this.props.quesObj.ans)}
+        </li>
+      </ul>
+      </div>
     );
   }
 }
