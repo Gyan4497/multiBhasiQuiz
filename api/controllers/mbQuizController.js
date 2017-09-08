@@ -24,7 +24,7 @@ exports.check_answer = function(req, res) {
 	console.log(req.body);
 	console.log(req.params);
 
-	Question.find(req.params.quesId, function( err, ques) {
+	Question.findById(req.params.quesId, function( err, ques) {
 		if(err) {res.send(err);}
 		res.json(ques);
 	});

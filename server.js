@@ -1,12 +1,13 @@
 var express = require("express"),
+cors = require('cors');
 
 app = express(),
 port = process.env.PORT || 8080,
 mongoose = require('mongoose'),
 bodyParser = require('body-parser'),
-
 quizModel = require('./api/models/mbQuizModel'); //loaded the model
 
+app.use(cors());
 //mongoose instance creation and connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/mbQuizdb');
