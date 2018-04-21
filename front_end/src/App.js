@@ -21,6 +21,7 @@ class App extends Component {
       this.setState({ data });
 
       console.log(data + "gyan");
+
     });
   }
 
