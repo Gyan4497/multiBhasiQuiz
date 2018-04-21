@@ -11,7 +11,7 @@ var QuizSchema = new Schema({
 	
 	options: {type: Array, "default": [] },
 
-	ans: { type: String }
+	ans: { type: String }  
 });
 
 
